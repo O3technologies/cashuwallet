@@ -53,6 +53,8 @@ public final class MainApplication extends Application {
         themes.put("BTC", R.style.Bitcoin);
         themes.put("BCH", R.style.Bitcoin_Cash);
         themes.put("BTG", R.style.Bitcoin_Gold);
+        themes.put("BSV", R.style.Bitcoin_SV);
+        themes.put("ADA", R.style.Cardano);
         themes.put("DASH", R.style.Dash);
         themes.put("DCR", R.style.Decred);
         themes.put("DGB", R.style.Digibyte);
@@ -67,6 +69,7 @@ public final class MainApplication extends Application {
         themes.put("QTUM", R.style.Qtum);
         themes.put("XRP", R.style.Ripple);
         themes.put("XLM", R.style.Stellar);
+        themes.put("TRX", R.style.Tron);
         themes.put("WAVES", R.style.Waves);
         themes.put("ZEC", R.style.Zcash);
         themes.put("ZRX", R.style._0x);
@@ -74,8 +77,11 @@ public final class MainApplication extends Application {
         themes.put("REP", R.style.Augur);
         themes.put("BAT", R.style.Basic_Attention_Token);
         themes.put("BNB", R.style.Binance_Coin);
+        themes.put("LINK", R.style.Chainlink);
+        themes.put("DAI", R.style.Dai);
         themes.put("EOS", R.style.EOS);
         themes.put("GNT", R.style.Golem);
+        themes.put("MKR", R.style.Maker);
         themes.put("OMG", R.style.OmiseGO);
         themes.put("SNT", R.style.Status);
         themes.put("ZIL", R.style.Zilliqa);
@@ -83,6 +89,8 @@ public final class MainApplication extends Application {
         drawable.put("BTC", R.drawable.bitcoin);
         drawable.put("BCH", R.drawable.bitcoincash);
         drawable.put("BTG", R.drawable.bitcoingold);
+        drawable.put("BSV", R.drawable.bitcoinsv);
+        drawable.put("ADA", R.drawable.cardano);
         drawable.put("DASH", R.drawable.dash);
         drawable.put("DCR", R.drawable.decred);
         drawable.put("DGB", R.drawable.digibyte);
@@ -97,6 +105,7 @@ public final class MainApplication extends Application {
         drawable.put("QTUM", R.drawable.qtum);
         drawable.put("XRP", R.drawable.ripple);
         drawable.put("XLM", R.drawable.stellar);
+        drawable.put("TRX", R.drawable.tron);
         drawable.put("WAVES", R.drawable.waves);
         drawable.put("ZEC", R.drawable.zcash);
         drawable.put("ZRX", R.drawable._0x);
@@ -104,8 +113,11 @@ public final class MainApplication extends Application {
         drawable.put("REP", R.drawable.augur);
         drawable.put("BAT", R.drawable.basicattentiontoken);
         drawable.put("BNB", R.drawable.binancecoin);
+        drawable.put("LINK", R.drawable.chainlink);
+        drawable.put("DAI", R.drawable.dai);
         drawable.put("EOS", R.drawable.eos);
         drawable.put("GNT", R.drawable.golem);
+        drawable.put("MKR", R.drawable.maker);
         drawable.put("OMG", R.drawable.omisego);
         drawable.put("SNT", R.drawable.status);
         drawable.put("ZIL", R.drawable.zilliqa);

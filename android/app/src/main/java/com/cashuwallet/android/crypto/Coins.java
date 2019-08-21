@@ -11,6 +11,8 @@ public final class Coins {
     private static final Coin bitcoin = new Bitcoin();
     private static final Coin bitcoincash = new BitcoinCash();
     private static final Coin bitcoingold = new BitcoinGold();
+    private static final Coin bitcoinsv = new BitcoinSV();
+    private static final Coin cardano = new Cardano();
     private static final Coin dash = new Dash();
     private static final Coin decred = new Decred();
     private static final Coin digibyte = new Digibyte();
@@ -25,6 +27,7 @@ public final class Coins {
     private static final Coin qtum = new Qtum();
     private static final Coin ripple = new Ripple();
     private static final Coin stellar = new Stellar();
+    private static final Coin tron = new Tron();
     private static final Coin waves = new Waves();
     private static final Coin zcash = new Zcash();
     private static final Coin _0x = new _0x();
@@ -32,8 +35,11 @@ public final class Coins {
     private static final Coin augur = new Augur();
     private static final Coin basicattentiontoken = new BasicAttentionToken();
     private static final Coin binancecoin = new BinanceCoin();
+    private static final Coin chainlink = new Chainlink();
+    private static final Coin dai = new Dai();
     private static final Coin eos = new EOS();
     private static final Coin golem = new Golem();
+    private static final Coin maker = new Maker();
     private static final Coin omisego = new OmiseGO();
     private static final Coin status = new Status();
     private static final Coin zilliqa = new Zilliqa();
@@ -44,6 +50,8 @@ public final class Coins {
         registry.put(bitcoin.getCode(), bitcoin);
         registry.put(bitcoincash.getCode(), bitcoincash);
         registry.put(bitcoingold.getCode(), bitcoingold);
+        registry.put(bitcoinsv.getCode(), bitcoinsv);
+        registry.put(cardano.getCode(), cardano);
         registry.put(dash.getCode(), dash);
         registry.put(decred.getCode(), decred);
         registry.put(digibyte.getCode(), digibyte);
@@ -58,6 +66,7 @@ public final class Coins {
         registry.put(qtum.getCode(), qtum);
         registry.put(ripple.getCode(), ripple);
         registry.put(stellar.getCode(), stellar);
+        registry.put(tron.getCode(), tron);
         registry.put(waves.getCode(), waves);
         registry.put(zcash.getCode(), zcash);
         registry.put(_0x.getCode(), _0x);
@@ -65,8 +74,11 @@ public final class Coins {
         registry.put(augur.getCode(), augur);
         registry.put(basicattentiontoken.getCode(), basicattentiontoken);
         registry.put(binancecoin.getCode(), binancecoin);
+        registry.put(chainlink.getCode(), chainlink);
+        registry.put(dai.getCode(), dai);
         registry.put(eos.getCode(), eos);
         registry.put(golem.getCode(), golem);
+        registry.put(maker.getCode(), maker);
         registry.put(omisego.getCode(), omisego);
         registry.put(status.getCode(), status);
         registry.put(zilliqa.getCode(), zilliqa);
@@ -162,9 +174,9 @@ public final class Coins {
         @Override
         public String getTransactionUrl(String hash, boolean testnet) {
             if (testnet) {
-                return "https://testnet.blockchain.info/tx/" + hash;
+                return "https://test-insight.bitpay.com/tx/" + hash;
             } else {
-                return "https://blockchain.info/tx/" + hash;
+                return "https://insight.bitpay.com/tx/" + hash;
             }
         }
     }
@@ -256,6 +268,95 @@ public final class Coins {
         }
     }
 
+    private static class BitcoinSV extends BitcoinCash {
+        @Override
+        public String getName() {
+            return "Bitcoin SV";
+        }
+
+        @Override
+        public String getLabel() {
+            return "bitcoinsv";
+        }
+
+        @Override
+        public String getCode() {
+            return "BSV";
+        }
+
+        @Override
+        public String getSymbol() {
+            return null;
+        }
+
+        @Override
+        public Service getService(boolean testnet) {
+            if (testnet) {
+                return new Service.Multi(new Service[]{
+                });
+            } else {
+                return new Service.Multi(new Service[]{
+                    new InsightAPI("https://bchsvexplorer.com/api/", getMinConf(), "bitcoinsv", false),
+                });
+            }
+        }
+
+        @Override
+        public String getTransactionUrl(String hash, boolean testnet) {
+            if (testnet) {
+                return null;
+            } else {
+                return "https://bchsvexplorer.com/tx/" + hash;
+            }
+        }
+    }
+
+    private static class Cardano extends AbstractCoin {
+        @Override
+        public String getName() {
+            return "Cardano";
+        }
+
+        @Override
+        public String getLabel() {
+            return "cardano";
+        }
+
+        @Override
+        public String getCode() {
+            return "ADA";
+        }
+
+        @Override
+        public String getSymbol() {
+            return "₳";
+        }
+
+        @Override
+        public Service getService(boolean testnet) {
+            if (testnet) {
+                return new Service.Multi(new Service[]{
+                    new CardanoslAPI("https://cardano-explorer.cardano-testnet.iohkdev.io/api/", "cardano", true),
+                });
+            } else {
+                return new Service.Multi(new Service[]{
+                    new CardanoslAPI("https://explorer2.adalite.io/api/", "cardano", false),
+                    new CardanoslAPI("https://iohk-mainnet.yoroiwallet.com/api/", "cardano", false),
+                    new CardanoslAPI("https://cardanoexplorer.com/api/", "cardano", false),
+                });
+            }
+        }
+
+        @Override
+        public String getTransactionUrl(String hash, boolean testnet) {
+            if (testnet) {
+                return "https://cardano-explorer.cardano-testnet.iohkdev.io/tx/" + hash;
+            } else {
+                return "https://cardanoexplorer.com/tx/" + hash;
+            }
+        }
+    }
+
     private static class Dash extends AbstractCoin {
         @Override
         public String getName() {
@@ -327,9 +428,15 @@ public final class Coins {
         @Override
         public Service getService(boolean testnet) {
             if (testnet) {
-                return new InsightAPI("https://testnet.decred.org/api/", getMinConf(), "decred", true);
+                return new Service.Multi(new Service[]{
+                    new InsightAPI("https://testnet.decred.org/insight/api/", getMinConf(), "decred", true),
+                    new InsightAPI("https://testnet.dcrdata.org/insight/api/", getMinConf(), "decred", true),
+                });
             } else {
-                return new InsightAPI("https://mainnet.decred.org/api/", getMinConf(), "decred", false);
+                return new Service.Multi(new Service[]{
+                    new InsightAPI("https://mainnet.decred.org/api/", getMinConf(), "decred", false),
+                    new InsightAPI("https://explorer.dcrdata.org/insight/api/", getMinConf(), "decred", false),
+                });
             }
         }
 
@@ -367,19 +474,16 @@ public final class Coins {
         @Override
         public Service getService(boolean testnet) {
             if (testnet) {
-                return new Service.Multi(new Service[]{
-                });
+                return new InsightAPI("https://testnet.digiexplorer.info/api/", 0/*getMinConf()*/, "digibyte", true);
             } else {
-                return new Service.Multi(new Service[]{
-                    new InsightAPI("https://digiexplorer.info/api/", 0/*getMinConf()*/, "digibyte", false),
-                });
+                return new InsightAPI("https://digiexplorer.info/api/", 0/*getMinConf()*/, "digibyte", false);
             }
         }
 
         @Override
         public String getTransactionUrl(String hash, boolean testnet) {
             if (testnet) {
-                return null;
+                return "https://testnet.digiexplorer.info/tx/" + hash;
             } else {
                 return "https://digiexplorer.info/tx/" + hash;
             }
@@ -413,6 +517,7 @@ public final class Coins {
                 return new SochainAPI("https://chain.so/api/v2/*/DOGETEST");
             } else {
                 return new Service.Multi(new Service[]{
+                        new InsightAPI("https://dogeblocks.com/api/", 0/*getMinConf()*/, "dogecoin", false),
                         new DogechainAPI("https://dogechain.info/api/v1/"),
                         new BlockcypherAPI("https://api.blockcypher.com/v1/doge/main", getMinConf()),
                         new SochainAPI("https://chain.so/api/v2/*/DOGE"),
@@ -454,11 +559,15 @@ public final class Coins {
         @Override
         public Service getService(boolean testnet) {
             if (testnet) {
-                return new EtherscanAPI("https://api-ropsten.etherscan.io/api");
+                return new Service.Multi(new Service[]{
+                    new EtherscanAPI("https://api-ropsten.etherscan.io/api"),
+                    new EtherscanAPI("https://blockscout.com/eth/ropsten/api", true),
+                });
             } else {
                 return new Service.Multi(new Service[]{
-                        new EtherscanAPI("https://api.etherscan.io/api"),
-                        new BlockcypherAPI("https://api.blockcypher.com/v1/eth/main"),
+                    new EtherscanAPI("https://api.etherscan.io/api"),
+                    new EtherscanAPI("https://blockscout.com/eth/mainnet/api", true),
+                    new BlockcypherAPI("https://api.blockcypher.com/v1/eth/main"),
                 });
             }
         }
@@ -497,10 +606,18 @@ public final class Coins {
         @Override
         public Service getService(boolean testnet) {
             if (testnet) {
-                return new Web3rpcAPI("https://web3.gastracker.io/morden");
+                return new Service.Multi(new Service[]{
+                    new EtherscanAPI("https://kottiexplorer.ethernode.io/api", true),
+                    new Web3rpcAPI("https://kotti.ethereumclassic.network/"),
+                    //new Web3rpcAPI("https://web3.gastracker.io/morden"),
+                });
             } else {
                 return new Service.Multi(new Service[]{
+                    new EtherscanAPI("https://blockscout.com/etc/mainnet/api", true),
                     new GastrackerAPI("https://api.gastracker.io/v1/"),
+                    new Web3rpcAPI("https://ethereumclassic.network/"),
+                    new Web3rpcAPI("https://etc-geth.0xinfra.com/"),
+                    new Web3rpcAPI("https://etc-parity.0xinfra.com/"),
                     new Web3rpcAPI("https://web3.gastracker.io/"),
                 });
             }
@@ -509,8 +626,8 @@ public final class Coins {
         @Override
         public String getTransactionUrl(String hash, boolean testnet) {
             if (testnet) {
-                // TODO use https when available
-                return "http://mordenexplorer.ethertrack.io/addr/" + hash;
+                return "https://kottiexplorer.ethernode.io/tx/" + hash;
+                //return "https://mordenexplorer.ethertrack.io/addr/" + hash;
             } else {
                 return "https://etherhub.io/tx/" + hash;
             }
@@ -597,6 +714,7 @@ public final class Coins {
             } else {
                 return new Service.Multi(new Service[]{
                     new InsightAPI("https://insight.litecore.io/api/", getMinConf(), "litecoin", false),
+                    new InsightAPI("https://litecoinblockexplorer.net/api/", getMinConf(), "litecoin", false),
                     new BlockcypherAPI("https://api.blockcypher.com/v1/ltc/main", getMinConf()),
                     new SochainAPI("https://chain.so/api/v2/*/LTC"),
                 });
@@ -867,6 +985,46 @@ public final class Coins {
         }
     }
 
+    private static class Tron extends AbstractCoin {
+        @Override
+        public String getName() {
+            return "Tron";
+        }
+
+        @Override
+        public String getLabel() {
+            return "tron";
+        }
+
+        @Override
+        public String getCode() {
+            return "TRX";
+        }
+
+        @Override
+        public String getSymbol() {
+            return null;
+        }
+
+        @Override
+        public Service getService(boolean testnet) {
+            if (testnet) {
+                return new TronscanAPI("https://api.shasta.tronscan.org/api/", true);
+            } else {
+                return new TronscanAPI("https://api.tronscan.org/api/", false);
+            }
+        }
+
+        @Override
+        public String getTransactionUrl(String hash, boolean testnet) {
+            if (testnet) {
+                return "https://shasta.tronscan.org/#/transaction/" + hash;
+            } else {
+                return "https://tronscan.org/#/transaction/" + hash;
+            }
+        }
+    }
+
     private static class Waves extends AbstractCoin {
         @Override
         public String getName() {
@@ -961,9 +1119,15 @@ public final class Coins {
         public Service getService(boolean testnet) {
             String contractAddress = coins.attr("contract.address", getLabel(), testnet);
             if (testnet) {
-                return new EtherscanAPI("https://api-ropsten.etherscan.io/api", contractAddress);
+                return new Service.Multi(new Service[]{
+                    new EtherscanAPI("https://api-ropsten.etherscan.io/api", contractAddress),
+                    new EtherscanAPI("https://blockscout.com/eth/ropsten/api", contractAddress, true),
+                });
             } else {
-                return new EtherscanAPI("https://api.etherscan.io/api", contractAddress);
+                return new Service.Multi(new Service[]{
+                    new EtherscanAPI("https://api.etherscan.io/api", contractAddress),
+                    new EtherscanAPI("https://blockscout.com/eth/mainnet/api", contractAddress, true),
+                });
             }
         }
     }
@@ -1078,6 +1242,50 @@ public final class Coins {
         }
     }
 
+    private static class Chainlink extends ERC20Token {
+        @Override
+        public String getName() {
+            return "Chainlink";
+        }
+
+        @Override
+        public String getLabel() {
+            return "chainlink";
+        }
+
+        @Override
+        public String getCode() {
+            return "LINK";
+        }
+
+        @Override
+        public String getSymbol() {
+            return null;
+        }
+    }
+
+    private static class Dai extends ERC20Token {
+        @Override
+        public String getName() {
+            return "Dai";
+        }
+
+        @Override
+        public String getLabel() {
+            return "dai";
+        }
+
+        @Override
+        public String getCode() {
+            return "DAI";
+        }
+
+        @Override
+        public String getSymbol() {
+            return null;
+        }
+    }
+
     private static class EOS extends ERC20Token {
         @Override
         public String getName() {
@@ -1114,6 +1322,28 @@ public final class Coins {
         @Override
         public String getCode() {
             return "GNT";
+        }
+
+        @Override
+        public String getSymbol() {
+            return null;
+        }
+    }
+
+    private static class Maker extends ERC20Token {
+        @Override
+        public String getName() {
+            return "Maker";
+        }
+
+        @Override
+        public String getLabel() {
+            return "maker";
+        }
+
+        @Override
+        public String getCode() {
+            return "MKR";
         }
 
         @Override

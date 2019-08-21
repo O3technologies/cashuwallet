@@ -29,6 +29,14 @@
     <color name="bitcoingold_dark">#001a56</color>
     <color name="bitcoingold_lite">#eba809</color>
 
+    <color name="bitcoinsv">#eab300</color>
+    <color name="bitcoinsv_dark">#dca800</color>
+    <color name="bitcoinsv_lite">#c8102e</color>
+
+    <color name="cardano">#004060</color>
+    <color name="cardano_dark">#00334d</color>
+    <color name="cardano_lite">#3cc8c8</color>
+
     <color name="dash">#2573c2</color>
     <color name="dash_dark">#1e5c9c</color>
     <color name="dash_lite">#224b76</color>
@@ -77,16 +85,20 @@
     <color name="qtum_dark">#257ca7</color>
     <color name="qtum_lite">#257ca7</color>
 
-    <color name="ripple">#0081c2</color>
-    <color name="ripple_dark">#00689c</color>
-    <color name="ripple_lite">#00689c</color>
+    <color name="ripple">#000000</color>
+    <color name="ripple_dark">#000000</color>
+    <color name="ripple_lite">#cccccc</color>
 
-    <color name="stellar">#067fa0</color>
-    <color name="stellar_dark">#056680</color>
+    <color name="stellar">#000000</color>
+    <color name="stellar_dark">#000000</color>
     <color name="stellar_lite">#cef0fa</color>
 
-    <color name="waves">#0055ff</color>
-    <color name="waves_dark">#0044cd</color>
+    <color name="tron">#c53027</color>
+    <color name="tron_dark">#93231d</color>
+    <color name="tron_lite">#8c8c8c</color>
+
+    <color name="waves">#000000</color>
+    <color name="waves_dark">#000000</color>
     <color name="waves_lite">#d6e0fc</color>
 
     <color name="zcash">#cd8421</color>
@@ -113,6 +125,14 @@
     <color name="binancecoin_dark">#c39526</color>
     <color name="binancecoin_lite">#666666</color>
 
+    <color name="chainlink">#2a5ada</color>
+    <color name="chainlink_dark">#0a258a</color>
+    <color name="chainlink_lite">#feca04</color>
+
+    <color name="dai">#febe44</color>
+    <color name="dai_dark">#d9a547</color>
+    <color name="dai_lite">#30bd9f</color>
+
     <color name="eos">#443f54</color>
     <color name="eos_dark">#373343</color>
     <color name="eos_lite">#bcd1cc</color>
@@ -120,6 +140,10 @@
     <color name="golem">#002d64</color>
     <color name="golem_dark">#002450</color>
     <color name="golem_lite">#b0ec00</color>
+
+    <color name="maker">#393939</color>
+    <color name="maker_dark">#292929</color>
+    <color name="maker_lite">#1bbc9a</color>
 
     <color name="omisego">#1a53f0</color>
     <color name="omisego_dark">#1543c1</color>

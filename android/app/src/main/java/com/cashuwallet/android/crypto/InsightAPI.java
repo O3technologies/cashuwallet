@@ -30,7 +30,8 @@ public class InsightAPI implements Service {
         try {
             String url = baseUrl + "status?q=getInfo";
             JSONObject data = new JSONObject(Network.urlFetch(url));
-            data = data.getJSONObject("info");
+            JSONObject info = data.optJSONObject("info");
+            if (info != null) data = info;
             return data.getLong("blocks");
         } catch (Exception e) {
             return -1;
@@ -72,9 +73,16 @@ public class InsightAPI implements Service {
     public List<HistoryItem> getHistory(String address, long height) {
         try {
             long chain_height = -1;
-            String url = baseUrl + "addrs/" + address + "/txs?from=0&to=20&noAsm=1&noSpent=1&noScriptSig=1";
-            JSONObject data = new JSONObject(Network.urlFetch(url));
-            JSONArray items = data.getJSONArray("items");
+            JSONObject data;
+            try {
+                String url = baseUrl + "addrs/" + address + "/txs?from=0&to=20&noAsm=1&noSpent=1&noScriptSig=1";
+                data = new JSONObject(Network.urlFetch(url));
+            } catch (Exception e) {
+                String url = baseUrl + "txs/?address=" + address;
+                data = new JSONObject(Network.urlFetch(url));
+            }
+            JSONArray items = data.optJSONArray("items");
+            if (items == null) items = data.getJSONArray("txs");
             List<HistoryItem> list = new ArrayList<>();
             for (int i = 0; i < items.length(); i++) {
                 JSONObject item = items.getJSONObject(i);
